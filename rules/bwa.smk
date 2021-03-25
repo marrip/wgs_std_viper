@@ -31,3 +31,20 @@ rule bwa_mem:
         "-O {output} "
         "--SORT_ORDER {params.SortOrd} "
         "--TMP_DIR analysis_output/{wildcards.sample}/bwa) &> {log}"
+
+
+rule index_bam:
+    input:
+        "analysis_output/{sample}/bwa/{sample}.bam",
+    output:
+        "analysis_output/{sample}/bwa/{sample}.bai",
+    log:
+        "analysis_output/{sample}/bwa/index_bam.log",
+    container:
+        config["tools"]["common"]
+    message:
+        "{rule}: Index {wildcards.sample} bam file"
+    shell:
+        "samtools index "
+        "-b {input} "
+        "{output} &> {log}"
