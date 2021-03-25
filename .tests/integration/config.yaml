@@ -15,6 +15,7 @@ tools:
   common: "docker://marrip/common:1.0.0"
   cutadapt: "docker://marrip/cutadapt:3.3"
   fastqc: "docker://marrip/fastqc:0.11.9"
+  mosdepth: "docker://marrip/mosdepth:v0.3.1"
   python: "docker://python:3.9.1-slim-buster"
   trimmomatic: "docker://marrip/trimmomatic:0.39"
   ubuntu: "docker://ubuntu:18.04"
