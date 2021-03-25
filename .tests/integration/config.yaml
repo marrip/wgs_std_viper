@@ -1,0 +1,18 @@
+samples: "samples.tsv"
+units: "units.tsv"
+
+reference:
+  fasta: "reference/WASH7P.fna"
+  sites: "reference/known_indels.vcf"
+  adapter:
+    fasta: "reference/TruSeq3-PE.fa"
+    fwd: "TACACTCTTTCCCTACACGACGCTCTTCCGATCT"
+    rev: "GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT"
+
+tools:
+  bwa: "docker://marrip/bwa:0.7.15"
+  cutadapt: "docker://marrip/cutadapt:3.3"
+  fastqc: "docker://marrip/fastqc:0.11.9"
+  python: "docker://python:3.9.1-slim-buster"
+  trimmomatic: "docker://marrip/trimmomatic:0.39"
+  ubuntu: "docker://ubuntu:18.04"
