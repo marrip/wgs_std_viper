@@ -47,3 +47,14 @@ def get_sample_fastq(wildcards):
 def get_loci():
     with open(config["reference"]["loci"]) as f:
         return [line.rstrip() for line in f]
+
+
+def get_all_bam(wildcards):
+    return expand("analysis_output/{sample}/mark_duplicates/{sample}_{locus}.bam",
+               sample=wildcards.sample,
+               locus=get_loci(),
+               )
+
+
+def get_all_bam_fmt(wildcards):
+    return " -I ".join(list(get_all_bam(wildcards)))
