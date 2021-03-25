@@ -3,6 +3,7 @@ units: "units.tsv"
 
 reference:
   fasta: "reference/WASH7P.fna"
+  loci: "reference/WASH7P.loci.txt"
   sites: "reference/known_indels.vcf"
   adapter:
     fasta: "reference/TruSeq3-PE.fa"
@@ -11,6 +12,7 @@ reference:
 
 tools:
   bwa: "docker://marrip/bwa:0.7.15"
+  common: "docker://marrip/common:1.0.0"
   cutadapt: "docker://marrip/cutadapt:3.3"
   fastqc: "docker://marrip/fastqc:0.11.9"
   python: "docker://python:3.9.1-slim-buster"
