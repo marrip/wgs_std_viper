@@ -1,10 +1,4 @@
-#for chr in get_loci():
-#    use rule split_bam as crazy with:
-#        output:
-#            "analysis_output/{{sample}}/split_bam/{{sample}}_" + chr + ".bam",
-#
-#for chr in get_loci():
-rule split_bam_:
+rule split_bam:
     input:
         bam="analysis_output/{sample}/bwa/{sample}.bam",
         bai="analysis_output/{sample}/bwa/{sample}.bai",
@@ -19,4 +13,6 @@ rule split_bam_:
     message:
         "{rule}: Split {wildcards.sample} bam file"
     shell:
-        "samtools view -b {input.bam} {wildcards.locus} &> {output} 2> {log}"
+        "samtools view "
+        "-b {input.bam} "
+        "{wildcards.locus} &> {output} 2> {log}"
