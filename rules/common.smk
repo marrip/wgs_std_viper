@@ -42,3 +42,8 @@ def get_fastq(wildcards):
 def get_sample_fastq(wildcards):
     fastqs = units.loc[(wildcards.sample), ["fq1", "fq2"]].dropna()
     return {"fwd": fastqs["fq1"].tolist(), "rev": fastqs["fq2"].tolist()}
+
+
+def get_loci():
+    with open(config["reference"]["loci"]) as f:
+        return [line.rstrip() for line in f]
