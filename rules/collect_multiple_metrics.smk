@@ -1,7 +1,6 @@
 rule collect_multiple_metrics:
     input:
         bam="analysis_output/{sample}/bwa/{sample}.bam",
-        ref=config["reference"]["fasta"],
     output:
         expand("analysis_output/{{sample}}/collect_multiple_metrics/{{sample}}.{ext}",
             ext=[
@@ -19,7 +18,6 @@ rule collect_multiple_metrics:
         "analysis_output/{sample}/collect_multiple_metrics/{sample}.log",
     container:
         config["tools"]["bwa"]
-    threads: 32
     message:
         "{rule}: Collect metrics on {wildcards.sample}"
     shell:
@@ -32,3 +30,53 @@ rule collect_multiple_metrics:
         "--PROGRAM MeanQualityByCycle "
         "--PROGRAM QualityScoreDistribution "
         "--METRIC_ACCUMULATION_LEVEL ALL_READS &> {log}"
+
+
+rule collect_alignment_summary_metrics:
+    input:
+        bam="analysis_output/{sample}/gather_bam_files/{sample}.bam",
+        ref=config["reference"]["fasta"],
+    output:
+        expand("analysis_output/{{sample}}/collect_alignment_summary_metrics/{{sample}}.{ext}",
+            ext=[
+              "alignment_summary_metrics",
+              ])
+    log:
+        "analysis_output/{sample}/collect_alignment_summary_metrics/{sample}.log",
+    container:
+        config["tools"]["bwa"]
+    message:
+        "{rule}: Collect alignment summary on {wildcards.sample}"
+    shell:
+        "gatk CollectMultipleMetrics "
+        "-I {input.bam} "
+        "-R {input.ref} "
+        "-O analysis_output/{wildcards.sample}/collect_alignment_summary_metrics/{wildcards.sample} "
+        "--ASSUME_SORTED "
+        "--PROGRAM CollectAlignmentSummaryMetrics "
+        "--PROGRAM CollectGcBiasMetrics "
+        "--METRIC_ACCUMULATION_LEVEL READ_GROUP &> {log}"
+
+
+rule collect_wgs_metrics:
+    input:
+        bam="analysis_output/{sample}/gather_bam_files/{sample}.bam",
+        ref=config["reference"]["fasta"],
+        int=config["reference"]["intervals"],
+    output:
+        "analysis_output/{sample}/collect_wgs_metrics/{sample}.txt",
+    log:
+        "analysis_output/{sample}/collect_wgs_metrics/{sample}.log",
+    container:
+        config["tools"]["bwa"]
+    message:
+        "{rule}: Collect WGS metrics on {wildcards.sample}"
+    shell:
+        "gatk CollectWgsMetrics "
+        "-I {input.bam} "
+        "-R {input.ref} "
+        "-O {output} "
+        "--INTERVALS {input.int} "
+        "--VALIDATION_STRINGENCY SILENT "
+        "--INCLUDE_BQ_HISTOGRAM "
+        "--USE_FAST_ALGORITHM &> {log}"
