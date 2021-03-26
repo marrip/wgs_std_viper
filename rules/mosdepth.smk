@@ -1,6 +1,7 @@
 rule mosdepth:
     input:
-        "analysis_output/{sample}/bwa/{sample}.bam",
+        bam="analysis_output/{sample}/bwa/{sample}.bam",
+        bai="analysis_output/{sample}/bwa/{sample}.bai",
     output:
         "analysis_output/{sample}/mosdepth/{sample}.mosdepth.global.dist.txt",
         "analysis_output/{sample}/mosdepth/{sample}.mosdepth.region.dist.txt",
@@ -21,4 +22,4 @@ rule mosdepth:
         "--fast-mode "
         "--by 500 "
         "analysis_output/{wildcards.sample}/mosdepth/{wildcards.sample} "
-        "{input} &> {log}"
+        "{input.bam} &> {log}"
