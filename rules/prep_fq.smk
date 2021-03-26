@@ -50,7 +50,7 @@ rule trimmomatic:
         "LEADING:3 "
         "TRAILING:3 "
         "MINLEN:36 &> {log}"
-        
+
 
 rule cutadapt:
     input:

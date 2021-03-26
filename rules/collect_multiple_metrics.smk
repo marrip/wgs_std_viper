@@ -2,18 +2,20 @@ rule collect_multiple_metrics:
     input:
         bam="analysis_output/{sample}/bwa/{sample}.bam",
     output:
-        expand("analysis_output/{{sample}}/collect_multiple_metrics/{{sample}}.{ext}",
+        expand(
+            "analysis_output/{{sample}}/collect_multiple_metrics/{{sample}}.{ext}",
             ext=[
-              "alignment_summary_metrics",
-              "base_distribution_by_cycle_metrics",
-              "base_distribution_by_cycle.pdf",
-              "insert_size_metrics",
-              "insert_size_histogram.pdf",
-              "quality_by_cycle_metrics",
-              "quality_by_cycle.pdf",
-              "quality_distribution_metrics",
-              "quality_distribution.pdf",
-              ])
+                "alignment_summary_metrics",
+                "base_distribution_by_cycle_metrics",
+                "base_distribution_by_cycle.pdf",
+                "insert_size_metrics",
+                "insert_size_histogram.pdf",
+                "quality_by_cycle_metrics",
+                "quality_by_cycle.pdf",
+                "quality_distribution_metrics",
+                "quality_distribution.pdf",
+            ],
+        ),
     log:
         "analysis_output/{sample}/collect_multiple_metrics/{sample}.log",
     container:
@@ -37,10 +39,20 @@ rule collect_alignment_summary_metrics:
         bam="analysis_output/{sample}/gather_bam_files/{sample}.bam",
         ref=config["reference"]["fasta"],
     output:
-        expand("analysis_output/{{sample}}/collect_alignment_summary_metrics/{{sample}}.{ext}",
+        expand(
+            "analysis_output/{{sample}}/collect_alignment_summary_metrics/{{sample}}.{ext}",
             ext=[
-              "alignment_summary_metrics",
-              ])
+                "alignment_summary_metrics",
+                "base_distribution_by_cycle_metrics",
+                "base_distribution_by_cycle.pdf",
+                "insert_size_metrics",
+                "insert_size_histogram.pdf",
+                "quality_by_cycle_metrics",
+                "quality_by_cycle.pdf",
+                "quality_distribution_metrics",
+                "quality_distribution.pdf",
+            ],
+        ),
     log:
         "analysis_output/{sample}/collect_alignment_summary_metrics/{sample}.log",
     container:

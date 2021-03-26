@@ -7,7 +7,7 @@ rule split_bam:
     log:
         "analysis_output/{sample}/split_bam/{sample}_{locus}.log",
     benchmark:
-        "analysis_output/{sample}/split_bam/{sample}_{locus}.tsv",
+        "analysis_output/{sample}/split_bam/{sample}_{locus}.tsv"
     container:
         config["tools"]["common"]
     message:

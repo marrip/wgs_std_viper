@@ -10,6 +10,7 @@ include: "rules/mosdepth.smk"
 include: "rules/prep_fq.smk"
 include: "rules/split_bam.smk"
 
+
 rule all:
-  input:
-    compile_output_list(),
+    input:
+        compile_output_list(),

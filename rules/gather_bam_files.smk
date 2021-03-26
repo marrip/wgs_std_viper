@@ -8,7 +8,7 @@ rule gather_bam_files:
     log:
         "analysis_output/{sample}/gather_bam_files/{sample}.log",
     benchmark:
-        "analysis_output/{sample}/gather_bam_files/{sample}.tsv",
+        "analysis_output/{sample}/gather_bam_files/{sample}.tsv"
     container:
         config["tools"]["bwa"]
     message:

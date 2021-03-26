@@ -35,7 +35,9 @@ wildcard_constraints:
 
 
 def get_fastq(wildcards):
-    fastqs = units.loc[(wildcards.sample, wildcards.run, wildcards.lane), ["fq1", "fq2"]].dropna()
+    fastqs = units.loc[
+        (wildcards.sample, wildcards.run, wildcards.lane), ["fq1", "fq2"]
+    ].dropna()
     return {"fwd": fastqs.fq1, "rev": fastqs.fq2}
 
 
@@ -50,15 +52,16 @@ def get_loci():
 
 
 def get_all_bam(wildcards):
-    return expand("analysis_output/{sample}/apply_bqsr/{sample}_{locus}.bam",
-               sample=wildcards.sample,
-               locus=get_loci(),
-               )
+    return expand(
+        "analysis_output/{sample}/apply_bqsr/{sample}_{locus}.bam",
+        sample=wildcards.sample,
+        locus=get_loci(),
+    )
 
 
 def get_all_bam_fmt(wildcards):
     return " -I ".join(list(get_all_bam(wildcards)))
-  
+
 
 def compile_output_list():
     output_list = []
@@ -73,7 +76,7 @@ def compile_output_list():
             "quality_by_cycle.pdf",
             "quality_distribution_metrics",
             "quality_distribution.pdf",
-          ],
+        ],
         "collect_alignment_summary_metrics": [
             "alignment_summary_metrics",
             "base_distribution_by_cycle_metrics",
@@ -87,27 +90,30 @@ def compile_output_list():
             "quality_by_cycle.pdf",
             "quality_distribution_metrics",
             "quality_distribution.pdf",
-          ],
-        "collect_wgs_metrics": [
-            "txt",
-          ],
-        "gather_bam_files": [
-            "bam",
-          ],
-        "apply_bqsr": [
-            "bam",
-          ],
+        ],
+        "collect_wgs_metrics": ["txt",],
+        "gather_bam_files": ["bam",],
+        "apply_bqsr": ["bam",],
         "mosdepth": [
             "mosdepth.global.dist.txt",
             "mosdepth.region.dist.txt",
             "mosdepth.summary.txt",
             "regions.bed.gz",
             "regions.bed.gz.csi",
-          ],
-        }
+        ],
+    }
     for row in units.index.tolist():
         output_list.append("analysis_output/%s/fastqc/%s_%s" % row)
-    output_list = output_list + expand("analysis_output/{sample}/trimmomatic/R{dir}.fq.gz", sample=samples.index, dir=["1", "2"])
+    output_list = output_list + expand(
+        "analysis_output/{sample}/trimmomatic/R{dir}.fq.gz",
+        sample=samples.index,
+        dir=["1", "2"],
+    )
     for key in files.keys():
-        output_list = output_list + expand("analysis_output/{sample}/{tool}/{sample}.{ext}", sample=samples.index, tool=key, ext=files[key])
+        output_list = output_list + expand(
+            "analysis_output/{sample}/{tool}/{sample}.{ext}",
+            sample=samples.index,
+            tool=key,
+            ext=files[key],
+        )
     return output_list

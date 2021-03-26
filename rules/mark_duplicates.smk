@@ -19,6 +19,7 @@ rule mark_duplicates_locus:
         "--CREATE_INDEX "
         "--TMP_DIR analysis_output/{wildcards.sample}/mark_duplicates &> {log}"
 
+
 rule mark_duplicates:
     input:
         bam="analysis_output/{sample}/bwa/{sample}.bam",
