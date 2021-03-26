@@ -4,6 +4,7 @@ units: "units.tsv"
 reference:
   fasta: ""
   sites: ""
+  intervals: ""
   adapter:
     fasta: ""
     fwd: "TACACTCTTTCCCTACACGACGCTCTTCCGATCT"

@@ -5,6 +5,7 @@ reference:
   fasta: "reference/WASH7P.fna"
   loci: "reference/WASH7P.loci.txt"
   sites: "reference/known_indels.vcf"
+  intervals: "reference/WASH7P.interval_list"
   adapter:
     fasta: "reference/TruSeq3-PE.fa"
     fwd: "TACACTCTTTCCCTACACGACGCTCTTCCGATCT"
