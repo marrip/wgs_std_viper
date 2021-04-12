@@ -1,0 +1,48 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: snakemake configuration file
+type: object
+properties:
+  samples:
+    type: string
+  units:
+    type: string
+  reference:
+    type: object
+    properties:
+      fasta:
+        type: string
+      sites:
+        type: string
+      adapter:
+        type: object
+        properties:
+          fasta:
+            type: string
+          fwd:
+            type: string
+          rev:
+            type: string
+    required:
+      - fasta
+      - sites
+      - adapter
+  tools:
+    type: object
+    properties:
+      bwa:
+        type: string
+      cutadapt:
+        type: string
+      fastqc:
+        type: string
+      python:
+        type: string
+      trimmomatic:
+        type: string
+      ubuntu:
+        type: string
+  required:
+    - samples
+    - units
+    - reference
+    - tools
