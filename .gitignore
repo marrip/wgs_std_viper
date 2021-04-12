@@ -2,3 +2,4 @@
 **/.java
 **/.snakemake
 **/analysis_output
+**/slurm

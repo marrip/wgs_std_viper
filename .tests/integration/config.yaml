@@ -18,5 +18,4 @@ tools:
   fastqc: "docker://marrip/fastqc:0.11.9"
   mosdepth: "docker://marrip/mosdepth:v0.3.1"
   python: "docker://python:3.9.1-slim-buster"
-  trimmomatic: "docker://marrip/trimmomatic:0.39"
   ubuntu: "docker://ubuntu:18.04"
