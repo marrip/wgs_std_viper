@@ -7,8 +7,6 @@ rule gather_bam_files:
         get_all_bam_fmt,
     log:
         "analysis_output/{sample}/gather_bam_files/{sample}.log",
-    benchmark:
-        "analysis_output/{sample}/gather_bam_files/{sample}.tsv"
     container:
         config["tools"]["bwa"]
     message:

@@ -93,7 +93,6 @@ def compile_output_list():
         ],
         "collect_wgs_metrics": ["txt",],
         "gather_bam_files": ["bam",],
-        "apply_bqsr": ["bam",],
         "mosdepth": [
             "mosdepth.global.dist.txt",
             "mosdepth.region.dist.txt",
@@ -104,11 +103,6 @@ def compile_output_list():
     }
     for row in units.index.tolist():
         output_list.append("analysis_output/%s/fastqc/%s_%s" % row)
-    output_list = output_list + expand(
-        "analysis_output/{sample}/trimmomatic/R{dir}.fq.gz",
-        sample=samples.index,
-        dir=["1", "2"],
-    )
     for key in files.keys():
         output_list = output_list + expand(
             "analysis_output/{sample}/{tool}/{sample}.{ext}",

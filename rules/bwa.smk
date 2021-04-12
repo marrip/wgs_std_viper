@@ -1,4 +1,4 @@
-rule bwa_mem:
+rule bwa:
     input:
         fwd="analysis_output/{sample}/cutadapt/R1.fq.gz",
         rev="analysis_output/{sample}/cutadapt/R2.fq.gz",
@@ -10,8 +10,6 @@ rule bwa_mem:
     params:
         K=10000000,
         R="'@RG\\tID:{sample}_rg1\\tLB:lib1\\tPL:bar\\tSM:{sample}\\tPU:{sample}_rg1'",
-        MaxRec=5000000,
-        SortOrd="coordinate",
     container:
         config["tools"]["bwa"]
     threads: 32
@@ -25,12 +23,9 @@ rule bwa_mem:
         "{input.ref} "
         "{input.fwd} "
         "{input.rev} | "
-        "gatk SortSam "
-        "--MAX_RECORDS_IN_RAM {params.MaxRec} "
-        "-I /dev/stdin "
-        "-O {output} "
-        "--SORT_ORDER {params.SortOrd} "
-        "--TMP_DIR analysis_output/{wildcards.sample}/bwa) &> {log}"
+        "samtools sort "
+        "-@ {threads} "
+        "-o {output} -) &> {log}"
 
 
 rule index_bam:

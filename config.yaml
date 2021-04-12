@@ -3,6 +3,7 @@ units: "units.tsv"
 
 reference:
   fasta: ""
+  loci: ""
   sites: ""
   intervals: ""
   adapter:
@@ -13,7 +14,7 @@ reference:
 tools:
   bwa: "docker://marrip/bwa:0.7.15"
   common: "docker://marrip/common:1.0.0"
-  cutadapt: "docker://marrip/cutadapt:3.3"
+  cutadapt: "docker://marrip/cutadapt:3.0"
   fastqc: "docker://marrip/fastqc:0.11.9"
   mosdepth: "docker://marrip/mosdepth:v0.3.1"
   python: "docker://python:3.9.1-slim-buster"
