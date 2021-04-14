@@ -29,15 +29,13 @@ properties:
   tools:
     type: object
     properties:
-      bwa:
+      common:
         type: string
       cutadapt:
         type: string
       fastqc:
         type: string
-      python:
-        type: string
-      trimmomatic:
+      gatk:
         type: string
       ubuntu:
         type: string

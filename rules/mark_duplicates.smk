@@ -8,7 +8,7 @@ rule mark_duplicates:
     log:
         "analysis_output/{sample}/mark_duplicates/{sample}_{locus}.log",
     container:
-        config["tools"]["bwa"]
+        config["tools"]["gatk"]
     shell:
         "gatk MarkDuplicates "
         "-I {input} "

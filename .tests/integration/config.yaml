@@ -12,10 +12,9 @@ reference:
     rev: "GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT"
 
 tools:
-  bwa: "docker://marrip/bwa:0.7.15"
   common: "docker://marrip/common:1.1.0"
   cutadapt: "docker://marrip/cutadapt:3.3"
   fastqc: "docker://marrip/fastqc:0.11.9"
+  gatk: "docker://broadinstitute/gatk:4.2.0.0"
   mosdepth: "docker://marrip/mosdepth:v0.3.1"
-  python: "docker://python:3.9.1-slim-buster"
   ubuntu: "docker://ubuntu:18.04"

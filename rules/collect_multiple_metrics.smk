@@ -19,7 +19,7 @@ rule collect_multiple_metrics:
     log:
         "analysis_output/{sample}/collect_multiple_metrics/{sample}.log",
     container:
-        config["tools"]["bwa"]
+        config["tools"]["gatk"]
     message:
         "{rule}: Collect metrics on {wildcards.sample}"
     shell:
@@ -59,7 +59,7 @@ rule collect_alignment_summary_metrics:
     log:
         "analysis_output/{sample}/collect_alignment_summary_metrics/{sample}.log",
     container:
-        config["tools"]["bwa"]
+        config["tools"]["gatk"]
     message:
         "{rule}: Collect alignment summary on {wildcards.sample}"
     shell:
@@ -83,7 +83,7 @@ rule collect_wgs_metrics:
     log:
         "analysis_output/{sample}/collect_wgs_metrics/{sample}.log",
     container:
-        config["tools"]["bwa"]
+        config["tools"]["gatk"]
     message:
         "{rule}: Collect WGS metrics on {wildcards.sample}"
     shell:
