@@ -37,8 +37,6 @@ properties:
         type: string
       gatk:
         type: string
-      ubuntu:
-        type: string
   required:
     - samples
     - units

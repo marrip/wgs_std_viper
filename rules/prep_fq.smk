@@ -7,7 +7,7 @@ rule combine_fq:
     log:
         "analysis_output/{sample}/combine_fq/{sample}.log",
     container:
-        config["tools"]["ubuntu"]
+        config["tools"]["common"]
     message:
         "{rule}: Combine fastq files of sample {wildcards.sample}"
     shell:
