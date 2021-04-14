@@ -29,7 +29,7 @@ rule cutadapt:
         "analysis_output/{sample}/cutadapt/{sample}.log",
     container:
         config["tools"]["cutadapt"]
-    threads: 4
+    threads: 10
     message:
         "{rule}: Trim adapter sequences in {wildcards.sample}"
     shell:
@@ -39,5 +39,7 @@ rule cutadapt:
         "-A {params.rev} "
         "-o {output.fwd} "
         "-p {output.rev} "
+        "--minimum-length 2 "
+        "-q 20 "
         "{input.fwd} "
         "{input.rev} &> {log}"
