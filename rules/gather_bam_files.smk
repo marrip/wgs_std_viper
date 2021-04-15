@@ -8,7 +8,7 @@ rule gather_bam_files:
     log:
         "analysis_output/{sample}/gather_bam_files/{sample}.log",
     container:
-        config["tools"]["bwa"]
+        config["tools"]["gatk"]
     message:
         "{rule}: Concatenate {wildcards.sample} bam files"
     shell:

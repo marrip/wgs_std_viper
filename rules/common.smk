@@ -2,7 +2,7 @@ import pandas as pd
 from snakemake.utils import validate
 from snakemake.utils import min_version
 
-min_version("5.22.0")
+min_version("5.32.0")
 
 ### Set and validate config file
 
@@ -11,6 +11,7 @@ configfile: "config.yaml"
 
 
 validate(config, schema="../schemas/config.schema.yaml")
+
 
 ### Read and validate samples file
 
@@ -63,7 +64,7 @@ def get_all_bam_fmt(wildcards):
     return " -I ".join(list(get_all_bam(wildcards)))
 
 
-def compile_output_list():
+def compile_output_list(wildcards):
     output_list = []
     files = {
         "collect_multiple_metrics": [
@@ -101,12 +102,15 @@ def compile_output_list():
             "regions.bed.gz.csi",
         ],
     }
-    for row in units.index.tolist():
-        output_list.append("analysis_output/%s/fastqc/%s_%s" % row)
+    for row in units.loc[(wildcards.sample), ["sample", "run", "lane"]].iterrows():
+        output_list.append(
+            "analysis_output/%s/fastqc/%s_%s"
+            % (row[1]["sample"], row[1]["run"], row[1]["lane"])
+        )
     for key in files.keys():
         output_list = output_list + expand(
             "analysis_output/{sample}/{tool}/{sample}.{ext}",
-            sample=samples.index,
+            sample=wildcards.sample,
             tool=key,
             ext=files[key],
         )

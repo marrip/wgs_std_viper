@@ -11,7 +11,7 @@ rule bwa:
         K=10000000,
         R="'@RG\\tID:{sample}_rg1\\tLB:lib1\\tPL:bar\\tSM:{sample}\\tPU:{sample}_rg1'",
     container:
-        config["tools"]["bwa"]
+        config["tools"]["common"]
     threads: 32
     message:
         "{rule}: Align {wildcards.sample} to {input.ref} and sort records"

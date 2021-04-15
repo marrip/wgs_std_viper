@@ -9,7 +9,7 @@ rule base_recalibrator:
     log:
         "analysis_output/{sample}/base_recalibrator/{sample}_{locus}.log",
     container:
-        config["tools"]["bwa"]
+        config["tools"]["gatk"]
     shell:
         "gatk BaseRecalibrator "
         "--input {input.bam} "

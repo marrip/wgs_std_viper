@@ -8,7 +8,7 @@ rule apply_bqsr:
     log:
         "analysis_output/{sample}/apply_bqsr/{sample}_{locus}.log",
     container:
-        config["tools"]["bwa"]
+        config["tools"]["gatk"]
     shell:
         "gatk ApplyBQSR "
         "-R {input.ref} "
