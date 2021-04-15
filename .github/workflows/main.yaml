@@ -1,4 +1,4 @@
-name: Lint Snakemake workflow
+name: Lint and Format Snakemake workflow
 
 on:
   push:
@@ -25,7 +25,9 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-      - name: Formatting
+        with:
+          fetch-depth: 0
+      - name: Lint Code Base
         uses: github/super-linter@v3 
         env:
           VALIDATE_ALL_CODEBASE: false
