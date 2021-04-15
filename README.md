@@ -2,6 +2,8 @@
 
 Simple workflow to map WGS data to reference genome according to GATK best practices
 
+![Snakefmt](https://github.com/marrip/wgs_std_viper/actions/workflows/main.yaml/badge.svg)
+
 ## :speech_balloon: Introduction
 
 This snakemake workflow produces `.bam` files from Illumina NGS `.fastq` files. It is
@@ -29,14 +31,18 @@ corresponding forward and reverse reads. Also indicate the sample id, run id and
 
 1. You need a reference `.fasta` file to map your reads to. For the different tools to work, you also
 need to prepare index files and a `.dict` file.
-  - The required files for the human reference genome GRCh38 can be downloaded from
-  [google cloud](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0).
-  The download can be manually done using the browser or using `gsutil` via the command line:
-```
+
+- The required files for the human reference genome GRCh38 can be downloaded from
+[google cloud](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0).
+The download can be manually done using the browser or using `gsutil` via the command line:
+
+```bash
 gsutil cp gs://genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.fasta /path/to/download/dir/
 ```
-  - If those resources are not available for your reference you may generate them yourself:
-```
+
+- If those resources are not available for your reference you may generate them yourself:
+
+```bash
 bwa index /path/to/reference.fasta
 samtools faidx /path/to/reference.fasta
 gatk CreateSequenceDictionary -R /path/to/reference.fasta -O /path/to/reference.dict
@@ -56,7 +62,7 @@ in the same directory as the reference `.fasta`.
 
 The workflow repository contains a small test dataset `.tests/integration` which can be run like so:
 
-```
+```bash
 cd .tests/integration
 snakemake -s ../../Snakefile -j1 --use-singularity
 ```
@@ -66,6 +72,6 @@ snakemake -s ../../Snakefile -j1 --use-singularity
 The workflow is designed for WGS data meaning huge datasets which require a lot of compute power. For
 HPC clusters, it is recommended to use a cluster profile and run something like:
 
-```
+```bash
 snakemake -s /path/to/Snakefile --profile my-awesome-profile
 ```
