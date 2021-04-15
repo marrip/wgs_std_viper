@@ -12,10 +12,10 @@ properties:
     description: lane number
   fq1:
     type: string
-    description: absolut path to R1 fastq file
+    description: absolute path to R1 fastq file
   fq2:
     type: string
-    description: absolut path to R2 fastq file
+    description: absolute path to R2 fastq file
 required:
   - sample
   - run
