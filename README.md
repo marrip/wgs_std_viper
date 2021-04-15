@@ -29,12 +29,10 @@ corresponding forward and reverse reads. Also indicate the sample id, run id and
 
 1. You need a reference `.fasta` file to map your reads to. For the different tools to work, you also
 need to index the file like so:
-
 ```bash
 bwa index /path/to/reference.fasta
 samtools faidx /path/to/reference.fasta
 gatk CreateSequenceDictionary -R /path/to/reference.fasta -O /path/to/reference.dict
 ```
-
 is this still part of 1.?
 2.
