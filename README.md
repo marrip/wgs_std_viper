@@ -4,7 +4,8 @@ Simple workflow to map WGS data to reference genome according to GATK best pract
 
 ## :speech_balloon: Introduction
 
-This snakemake workflow produces `.bam` files from Illumina NGS `.fastq` files. In addition,
+This snakemake workflow produces `.bam` files from Illumina NGS `.fastq` files. It is
+designed to align WGS data from paired end sequencing runs. In addition,
 a coverage analysis is performed and several alignment statistics are generated. The
 pipeline can be run as is or may be included in another workflow.
 
@@ -17,3 +18,10 @@ To run this workflow, the following tools need to be available:
 3. [Singularity](https://sylabs.io/docs/) ≥ 3.7
 
 ## :school_satchel: Preparations
+
+### Sample data
+
+1. Add all sample ids to `samples.tsv` in the column `sample`.
+2. Add all sample data information to `units.tsv`. Each row represents a `fastq` file pair with
+corresponding forward and reverse reads. Also indicate the sample id, run id and lane number
+3. Ref
