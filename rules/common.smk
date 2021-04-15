@@ -8,6 +8,8 @@ min_version("5.32.0")
 
 
 configfile: "config.yaml"
+
+
 validate(config, schema="../schemas/config.schema.yaml")
 
 
@@ -101,7 +103,10 @@ def compile_output_list(wildcards):
         ],
     }
     for row in units.loc[(wildcards.sample), ["sample", "run", "lane"]].iterrows():
-        output_list.append("analysis_output/%s/fastqc/%s_%s" % (row[1]["sample"], row[1]["run"], row[1]["lane"]))
+        output_list.append(
+            "analysis_output/%s/fastqc/%s_%s"
+            % (row[1]["sample"], row[1]["run"], row[1]["lane"])
+        )
     for key in files.keys():
         output_list = output_list + expand(
             "analysis_output/{sample}/{tool}/{sample}.{ext}",
