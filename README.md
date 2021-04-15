@@ -1,6 +1,6 @@
-# wgs_std_viper
-
 ![Snakefmt](https://github.com/marrip/wgs_std_viper/actions/workflows/main.yaml/badge.svg)
+
+# wgs_std_viper
 
 Simple workflow to map WGS data to reference genome according to GATK best practices
 
