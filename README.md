@@ -1,6 +1,8 @@
-# wgs_std_viper ![Snakefmt](https://github.com/marrip/wgs_std_viper/actions/workflows/main.yaml/badge.svg)
+# wgs_std_viper 
 
 Simple workflow to map WGS data to reference genome according to GATK best practices
+
+![Snakefmt](https://github.com/marrip/wgs_std_viper/actions/workflows/main.yaml/badge.svg)
 
 ## :speech_balloon: Introduction
 
@@ -29,13 +31,13 @@ corresponding forward and reverse reads. Also indicate the sample id, run id and
 
 1. You need a reference `.fasta` file to map your reads to. For the different tools to work, you also
 need to prepare index files and a `.dict` file.
-  - The required files for the human reference genome GRCh38 can be downloaded from
-  [google cloud](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0).
-  The download can be manually done using the browser or using `gsutil` via the command line:
+- The required files for the human reference genome GRCh38 can be downloaded from
+[google cloud](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0).
+The download can be manually done using the browser or using `gsutil` via the command line:
 ```
 gsutil cp gs://genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.fasta /path/to/download/dir/
 ```
-  - If those resources are not available for your reference you may generate them yourself:
+- If those resources are not available for your reference you may generate them yourself:
 ```
 bwa index /path/to/reference.fasta
 samtools faidx /path/to/reference.fasta
