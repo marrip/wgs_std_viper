@@ -27,20 +27,18 @@ corresponding forward and reverse reads. Also indicate the sample id, run id and
 
 ### Reference data
 
-1. 1. You need a reference `.fasta` file to map your reads to. For the different tools to work, you also
-need to index the file like so:
+1. You need a reference `.fasta` file to map your reads to. For the different tools to work, you also
+need to prepare index files and a `.dict` file.
+* The required files for the human reference genome GRCh38 can be downloaded from [google cloud](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0).
+The download can be manually done using the browser or using `gsutil` via the command line:
+```
+gsutil cp gs://genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.fasta /path/to/download/dir/
+```
 
 ```
 bwa index /path/to/reference.fasta
 samtools faidx /path/to/reference.fasta
 gatk CreateSequenceDictionary -R /path/to/reference.fasta -O /path/to/reference.dict
-```
-
-1. 2. The required files for the human reference genome GRCh38 can be downloaded from [google cloud](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0).
-The download can be manually done using the browser or using `gsutil` via the command line:
-
-```
-gsutil cp gs://genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.fasta /path/to/download/dir/
 ```
 
 2. For the task `BaseRecalibrator` we use a `.vcf` containing known indels. For GRCh38, this is
