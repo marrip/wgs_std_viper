@@ -7,7 +7,6 @@ reference:
   sites: ""
   intervals: ""
   adapter:
-    fasta: ""
     fwd: "TACACTCTTTCCCTACACGACGCTCTTCCGATCT"
     rev: "GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT"
 

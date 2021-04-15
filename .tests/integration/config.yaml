@@ -2,14 +2,14 @@ samples: "samples.tsv"
 units: "units.tsv"
 
 reference:
-  fasta: "reference/WASH7P.fna"
-  loci: "reference/WASH7P.loci.txt"
-  sites: "reference/known_indels.vcf"
-  intervals: "reference/WASH7P.interval_list"
   adapter:
     fasta: "reference/TruSeq3-PE.fa"
     fwd: "TACACTCTTTCCCTACACGACGCTCTTCCGATCT"
     rev: "GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT"
+  fasta: "reference/WASH7P.fna"
+  intervals: "reference/WASH7P.interval_list"
+  loci: "reference/WASH7P.loci.txt"
+  sites: "reference/known_indels.vcf"
 
 tools:
   common: "docker://marrip/common:1.1.0"

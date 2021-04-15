@@ -9,23 +9,27 @@ properties:
   reference:
     type: object
     properties:
-      fasta:
-        type: string
-      sites:
-        type: string
       adapter:
         type: object
         properties:
-          fasta:
-            type: string
           fwd:
             type: string
           rev:
             type: string
+      fasta:
+        type: string
+      intervals:
+        type: string
+      loci:
+        type: string
+      sites:
+        type: string
     required:
-      - fasta
-      - sites
       - adapter
+      - fasta
+      - intervals
+      - loci
+      - sites
   tools:
     type: object
     properties:
