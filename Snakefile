@@ -13,4 +13,17 @@ include: "rules/split_bam.smk"
 
 rule all:
     input:
-        compile_output_list(),
+        "analysis_output/NA12878/wgs_std_viper.ok",
+
+
+rule workflow_complete:
+    input:
+        unpack(compile_output_list),
+    output:
+        "analysis_output/{sample}/wgs_std_viper.ok",
+    log:
+        "analysis_output/{sample}/wgs_std_viper.workflow_complete.log",
+    container:
+        config["tools"]["common"]
+    shell:
+        "touch {output} &> {log}"

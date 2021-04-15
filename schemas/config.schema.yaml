@@ -37,6 +37,8 @@ properties:
         type: string
       gatk:
         type: string
+      mosdepth:
+        type: string
   required:
     - samples
     - units
