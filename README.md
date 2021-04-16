@@ -3,6 +3,7 @@
 Simple workflow to map WGS data to reference genome according to GATK best practices
 
 ![Snakefmt](https://github.com/marrip/wgs_std_viper/actions/workflows/main.yaml/badge.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## :speech_balloon: Introduction
 
