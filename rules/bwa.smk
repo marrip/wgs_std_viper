@@ -4,7 +4,7 @@ rule bwa:
         rev="analysis_output/{sample}/cutadapt/R2.fq.gz",
         ref=config["reference"]["fasta"],
     output:
-        "analysis_output/{sample}/bwa/{sample}.bam",
+        temp("analysis_output/{sample}/bwa/{sample}.bam"),
     log:
         "analysis_output/{sample}/bwa/{sample}.log",
     params:
@@ -32,7 +32,7 @@ rule index_bam:
     input:
         "analysis_output/{sample}/bwa/{sample}.bam",
     output:
-        "analysis_output/{sample}/bwa/{sample}.bai",
+        temp("analysis_output/{sample}/bwa/{sample}.bai"),
     log:
         "analysis_output/{sample}/bwa/index_bam.log",
     container:

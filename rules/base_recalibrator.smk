@@ -5,7 +5,7 @@ rule base_recalibrator:
         ref=config["reference"]["fasta"],
         sites=config["reference"]["sites"],
     output:
-        "analysis_output/{sample}/base_recalibrator/{sample}_{locus}.txt",
+        temp("analysis_output/{sample}/base_recalibrator/{sample}_{locus}.txt"),
     log:
         "analysis_output/{sample}/base_recalibrator/{sample}_{locus}.log",
     container:

@@ -3,7 +3,7 @@ rule split_bam:
         bam="analysis_output/{sample}/bwa/{sample}.bam",
         bai="analysis_output/{sample}/bwa/{sample}.bai",
     output:
-        "analysis_output/{sample}/split_bam/{sample}_{locus}.bam",
+        temp("analysis_output/{sample}/split_bam/{sample}_{locus}.bam"),
     log:
         "analysis_output/{sample}/split_bam/{sample}_{locus}.log",
     container:

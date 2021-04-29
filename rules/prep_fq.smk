@@ -20,8 +20,8 @@ rule cutadapt:
         fwd="analysis_output/{sample}/combine_fq/R1.fq.gz",
         rev="analysis_output/{sample}/combine_fq/R2.fq.gz",
     output:
-        fwd="analysis_output/{sample}/cutadapt/R1.fq.gz",
-        rev="analysis_output/{sample}/cutadapt/R2.fq.gz",
+        fwd=temp("analysis_output/{sample}/cutadapt/R1.fq.gz"),
+        rev=temp("analysis_output/{sample}/cutadapt/R2.fq.gz"),
     params:
         fwd=config["reference"]["adapter"]["fwd"],
         rev=config["reference"]["adapter"]["rev"],

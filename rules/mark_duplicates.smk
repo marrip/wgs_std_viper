@@ -2,8 +2,8 @@ rule mark_duplicates:
     input:
         "analysis_output/{sample}/split_bam/{sample}_{locus}.bam",
     output:
-        bam="analysis_output/{sample}/mark_duplicates/{sample}_{locus}.bam",
-        bai="analysis_output/{sample}/mark_duplicates/{sample}_{locus}.bai",
+        bam=temp("analysis_output/{sample}/mark_duplicates/{sample}_{locus}.bam"),
+        bai=temp("analysis_output/{sample}/mark_duplicates/{sample}_{locus}.bai"),
         metrics="analysis_output/{sample}/mark_duplicates/{sample}_{locus}.metrics",
     log:
         "analysis_output/{sample}/mark_duplicates/{sample}_{locus}.log",

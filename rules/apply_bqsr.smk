@@ -4,7 +4,7 @@ rule apply_bqsr:
         recal="analysis_output/{sample}/base_recalibrator/{sample}_{locus}.txt",
         ref=config["reference"]["fasta"],
     output:
-        "analysis_output/{sample}/apply_bqsr/{sample}_{locus}.bam",
+        temp("analysis_output/{sample}/apply_bqsr/{sample}_{locus}.bam"),
     log:
         "analysis_output/{sample}/apply_bqsr/{sample}_{locus}.log",
     container:
