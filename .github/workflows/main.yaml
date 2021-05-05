@@ -37,7 +37,7 @@ jobs:
           #        OUTPUT_FOLDER: .github/linters/report
   test:
     name: Test workflow
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.8
