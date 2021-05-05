@@ -1,4 +1,4 @@
-name: Lint and Format Snakemake workflow
+name: Lint and Test
 
 on:
   push:
