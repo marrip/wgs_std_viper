@@ -8,6 +8,7 @@ include: "rules/gather_bam_files.smk"
 include: "rules/mark_duplicates.smk"
 include: "rules/mosdepth.smk"
 include: "rules/prep_fq.smk"
+include: "rules/samtools_stats.smk"
 include: "rules/split_bam.smk"
 
 

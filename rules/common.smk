@@ -101,6 +101,7 @@ def compile_output_list(wildcards):
             "regions.bed.gz",
             "regions.bed.gz.csi",
         ],
+        "samtools_stats": ["txt",],
     }
     for row in units.loc[(wildcards.sample), ["sample", "run", "lane"]].iterrows():
         output_list.append(
