@@ -13,7 +13,10 @@ include: "rules/split_bam.smk"
 
 rule all:
     input:
-        "analysis_output/NA12878/wgs_std_viper.ok",
+        expand(
+            "analysis_output/{sample}/wgs_std_viper.ok",
+            sample=samples.index,
+            )
 
 
 rule workflow_complete:
