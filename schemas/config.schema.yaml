@@ -16,6 +16,9 @@ properties:
             type: string
           rev:
             type: string
+        required:
+          - fwd
+          - rev
       fasta:
         type: string
       intervals:

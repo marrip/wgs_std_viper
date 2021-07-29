@@ -14,19 +14,16 @@ include: "rules/split_bam.smk"
 
 rule all:
     input:
-        expand(
-            "analysis_output/{sample}/wgs_std_viper.ok",
-            sample=samples.index,
-            )
+        "analysis_output/wgs_std_viper.ok",
 
 
 rule workflow_complete:
     input:
         unpack(compile_output_list),
     output:
-        "analysis_output/{sample}/wgs_std_viper.ok",
+        "analysis_output/wgs_std_viper.ok",
     log:
-        "analysis_output/{sample}/wgs_std_viper.workflow_complete.log",
+        "analysis_output/wgs_std_viper.workflow_complete.log",
     container:
         config["tools"]["common"]
     shell:

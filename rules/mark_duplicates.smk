@@ -1,14 +1,16 @@
 rule mark_duplicates:
     input:
-        "analysis_output/{sample}/split_bam/{sample}_{locus}.bam",
+        "analysis_output/{sample}/split_bam/{sample}_{unit}_{locus}.bam",
     output:
-        bam=temp("analysis_output/{sample}/mark_duplicates/{sample}_{locus}.bam"),
-        bai=temp("analysis_output/{sample}/mark_duplicates/{sample}_{locus}.bai"),
-        metrics="analysis_output/{sample}/mark_duplicates/{sample}_{locus}.metrics",
+        bam=temp("analysis_output/{sample}/mark_duplicates/{sample}_{unit}_{locus}.bam"),
+        bai=temp("analysis_output/{sample}/mark_duplicates/{sample}_{unit}_{locus}.bai"),
+        metrics="analysis_output/{sample}/mark_duplicates/{sample}_{unit}_{locus}.metrics",
     log:
-        "analysis_output/{sample}/mark_duplicates/{sample}_{locus}.log",
+        "analysis_output/{sample}/mark_duplicates/{sample}_{unit}_{locus}.log",
     container:
         config["tools"]["gatk"]
+    message:
+        "{rule}: Mark duplicates in {wildcards.sample}_{wildcards.unit}"
     shell:
         "gatk MarkDuplicates "
         "-I {input} "

@@ -21,7 +21,7 @@ validate(samples, schema="../schemas/samples.schema.yaml")
 ### Read and validate units file
 
 units = pd.read_table(config["units"], dtype=str).set_index(
-    ["sample", "run", "lane"], drop=False
+    ["sample", "unit", "run", "lane"], drop=False
 )
 validate(units, schema="../schemas/units.schema.yaml")
 
@@ -37,13 +37,13 @@ wildcard_constraints:
 
 def get_fastq(wildcards):
     fastqs = units.loc[
-        (wildcards.sample, wildcards.run, wildcards.lane), ["fq1", "fq2"]
+        (wildcards.sample, wildcards.unit, wildcards.run, wildcards.lane), ["fq1", "fq2"]
     ].dropna()
     return {"fwd": fastqs.fq1, "rev": fastqs.fq2}
 
 
 def get_sample_fastq(wildcards):
-    fastqs = units.loc[(wildcards.sample), ["fq1", "fq2"]].dropna()
+    fastqs = units.loc[(wildcards.sample, wildcards.unit), ["fq1", "fq2"]].dropna()
     return {"fwd": fastqs["fq1"].tolist(), "rev": fastqs["fq2"].tolist()}
 
 
@@ -54,8 +54,9 @@ def get_loci():
 
 def get_all_bam(wildcards):
     return expand(
-        "analysis_output/{sample}/apply_bqsr/{sample}_{locus}.bam",
+        "analysis_output/{sample}/apply_bqsr/{sample}_{unit}_{locus}.bam",
         sample=wildcards.sample,
+        unit=wildcards.unit,
         locus=get_loci(),
     )
 
@@ -103,16 +104,18 @@ def compile_output_list(wildcards):
         ],
         "samtools_stats": ["txt",],
     }
-    for row in units.loc[(wildcards.sample), ["sample", "run", "lane"]].iterrows():
+    for row in units.loc[samples.index, ["sample", "unit", "run", "lane"]].iterrows():
         output_list.append(
-            "analysis_output/%s/fastqc/%s_%s"
-            % (row[1]["sample"], row[1]["run"], row[1]["lane"])
+            "analysis_output/%s/fastqc/%s_%s_%s_%s"
+            % (row[1]["sample"], row[1]["sample"], row[1]["unit"], row[1]["run"], row[1]["lane"])
         )
-    for key in files.keys():
-        output_list = output_list + expand(
-            "analysis_output/{sample}/{tool}/{sample}.{ext}",
-            sample=wildcards.sample,
-            tool=key,
-            ext=files[key],
-        )
+    for row in units.loc[(samples.index), ["sample", "unit"]].drop_duplicates().iterrows():
+        for key in files.keys():
+            output_list = output_list + expand(
+                "analysis_output/{sample}/{tool}/{sample}_{unit}.{ext}",
+                sample=row[1]["sample"],
+                tool=key,
+                unit=row[1]["unit"],
+                ext=files[key],
+            )
     return output_list
