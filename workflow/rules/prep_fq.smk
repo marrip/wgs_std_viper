@@ -2,14 +2,14 @@ rule combine_fq:
     input:
         unpack(get_sample_fastq),
     output:
-        fwd="analysis_output/{sample}/combine_fq/R1.fq.gz",
-        rev="analysis_output/{sample}/combine_fq/R2.fq.gz",
+        fwd="analysis_output/{sample}/combine_fq/{sample}_{unit}_R1.fq.gz",
+        rev="analysis_output/{sample}/combine_fq/{sample}_{unit}_R2.fq.gz",
     log:
-        "analysis_output/{sample}/combine_fq/{sample}.log",
+        "analysis_output/{sample}/combine_fq/{sample}_{unit}.log",
     container:
         config["tools"]["common"]
     message:
-        "{rule}: Combine fastq files of sample {wildcards.sample}"
+        "{rule}: Combine fastq files of sample {wildcards.sample}_{wildcards.unit}"
     shell:
         "cat {input.fwd} > {output.fwd} && "
         "cat {input.rev} > {output.rev} | tee {log}"
@@ -17,21 +17,21 @@ rule combine_fq:
 
 rule cutadapt:
     input:
-        fwd="analysis_output/{sample}/combine_fq/R1.fq.gz",
-        rev="analysis_output/{sample}/combine_fq/R2.fq.gz",
+        fwd="analysis_output/{sample}/combine_fq/{sample}_{unit}_R1.fq.gz",
+        rev="analysis_output/{sample}/combine_fq/{sample}_{unit}_R2.fq.gz",
     output:
-        fwd=temp("analysis_output/{sample}/cutadapt/R1.fq.gz"),
-        rev=temp("analysis_output/{sample}/cutadapt/R2.fq.gz"),
+        fwd=temp("analysis_output/{sample}/cutadapt/{sample}_{unit}_R1.fq.gz"),
+        rev=temp("analysis_output/{sample}/cutadapt/{sample}_{unit}_R2.fq.gz"),
     params:
         fwd=config["reference"]["adapter"]["fwd"],
         rev=config["reference"]["adapter"]["rev"],
     log:
-        "analysis_output/{sample}/cutadapt/{sample}.log",
+        "analysis_output/{sample}/cutadapt/{sample}_{unit}.log",
     container:
         config["tools"]["cutadapt"]
     threads: 10
     message:
-        "{rule}: Trim adapter sequences in {wildcards.sample}"
+        "{rule}: Trim adapter sequences in {wildcards.sample}_{wildcards.unit}"
     shell:
         "cutadapt "
         "-j {threads} "

@@ -1,9 +1,9 @@
 rule collect_multiple_metrics:
     input:
-        bam="analysis_output/{sample}/bwa/{sample}.bam",
+        bam="analysis_output/{sample}/bwa/{sample}_{unit}.bam",
     output:
         expand(
-            "analysis_output/{{sample}}/collect_multiple_metrics/{{sample}}.{ext}",
+            "analysis_output/{{sample}}/collect_multiple_metrics/{{sample}}_{{unit}}.{ext}",
             ext=[
                 "alignment_summary_metrics",
                 "base_distribution_by_cycle_metrics",
@@ -17,15 +17,15 @@ rule collect_multiple_metrics:
             ],
         ),
     log:
-        "analysis_output/{sample}/collect_multiple_metrics/{sample}.log",
+        "analysis_output/{sample}/collect_multiple_metrics/{sample}_{unit}.log",
     container:
         config["tools"]["gatk"]
     message:
-        "{rule}: Collect metrics on {wildcards.sample}"
+        "{rule}: Collect metrics on {wildcards.sample}_{wildcards.unit}"
     shell:
         "gatk CollectMultipleMetrics "
         "-I {input.bam} "
-        "-O analysis_output/{wildcards.sample}/collect_multiple_metrics/{wildcards.sample} "
+        "-O analysis_output/{wildcards.sample}/collect_multiple_metrics/{wildcards.sample}_{wildcards.unit} "
         "--ASSUME_SORTED "
         "--PROGRAM CollectBaseDistributionByCycle "
         "--PROGRAM CollectInsertSizeMetrics "
@@ -36,11 +36,11 @@ rule collect_multiple_metrics:
 
 rule collect_alignment_summary_metrics:
     input:
-        bam="analysis_output/{sample}/gather_bam_files/{sample}.bam",
+        bam="analysis_output/{sample}/gather_bam_files/{sample}_{unit}.bam",
         ref=config["reference"]["fasta"],
     output:
         expand(
-            "analysis_output/{{sample}}/collect_alignment_summary_metrics/{{sample}}.{ext}",
+            "analysis_output/{{sample}}/collect_alignment_summary_metrics/{{sample}}_{{unit}}.{ext}",
             ext=[
                 "alignment_summary_metrics",
                 "base_distribution_by_cycle_metrics",
@@ -57,16 +57,16 @@ rule collect_alignment_summary_metrics:
             ],
         ),
     log:
-        "analysis_output/{sample}/collect_alignment_summary_metrics/{sample}.log",
+        "analysis_output/{sample}/collect_alignment_summary_metrics/{sample}_{unit}.log",
     container:
         config["tools"]["gatk"]
     message:
-        "{rule}: Collect alignment summary on {wildcards.sample}"
+        "{rule}: Collect alignment summary on {wildcards.sample}_{wildcards.unit}"
     shell:
         "gatk CollectMultipleMetrics "
         "-I {input.bam} "
         "-R {input.ref} "
-        "-O analysis_output/{wildcards.sample}/collect_alignment_summary_metrics/{wildcards.sample} "
+        "-O analysis_output/{wildcards.sample}/collect_alignment_summary_metrics/{wildcards.sample}_{wildcards.unit} "
         "--ASSUME_SORTED "
         "--PROGRAM CollectAlignmentSummaryMetrics "
         "--PROGRAM CollectGcBiasMetrics "
@@ -75,17 +75,17 @@ rule collect_alignment_summary_metrics:
 
 rule collect_wgs_metrics:
     input:
-        bam="analysis_output/{sample}/gather_bam_files/{sample}.bam",
+        bam="analysis_output/{sample}/gather_bam_files/{sample}_{unit}.bam",
         ref=config["reference"]["fasta"],
         int=config["reference"]["intervals"],
     output:
-        "analysis_output/{sample}/collect_wgs_metrics/{sample}.txt",
+        "analysis_output/{sample}/collect_wgs_metrics/{sample}_{unit}.txt",
     log:
-        "analysis_output/{sample}/collect_wgs_metrics/{sample}.log",
+        "analysis_output/{sample}/collect_wgs_metrics/{sample}_{unit}.log",
     container:
         config["tools"]["gatk"]
     message:
-        "{rule}: Collect WGS metrics on {wildcards.sample}"
+        "{rule}: Collect WGS metrics on {wildcards.sample}_{wildcards.unit}"
     shell:
         "gatk CollectWgsMetrics "
         "-I {input.bam} "

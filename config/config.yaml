@@ -2,13 +2,13 @@ samples: "samples.tsv"
 units: "units.tsv"
 
 reference:
-  fasta: ""
-  loci: ""
-  sites: ""
-  intervals: ""
   adapter:
     fwd: "TACACTCTTTCCCTACACGACGCTCTTCCGATCT"
     rev: "GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT"
+  fasta: ""
+  intervals: ""
+  loci: ""
+  sites: ""
 
 tools:
   common: "docker://marrip/common:1.1.0"

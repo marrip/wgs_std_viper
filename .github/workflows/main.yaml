@@ -16,7 +16,7 @@ jobs:
         uses: snakemake/snakemake-github-action@v1.17.0
         with:
           directory: ".tests/integration"
-          snakefile: "Snakefile"
+          snakefile: "workflow/Snakefile"
           args: "--lint"
   snakefmt:
     name: Lint Code Base
@@ -32,7 +32,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ALIDATE_SNAKEMAKE_SNAKEFMT: true
+          VALIDATE_SNAKEMAKE_SNAKEFMT: true
           OUTPUT_FOLDER: .github/linters/report
   test:
     name: Test workflow
@@ -53,4 +53,4 @@ jobs:
       working-directory: .tests/integration
       run: |
         mamba install -c conda-forge -c bioconda snakemake singularity
-        snakemake -s ../../Snakefile -j 1 --use-singularity
+        snakemake -s ../../workflow/Snakefile -j 1 --use-singularity

@@ -4,6 +4,9 @@ properties:
   sample:
     type: string
     description: sample id
+  unit:
+    type: string
+    description: type of sample
   run:
     type: string
     description: sequencing run id
@@ -18,6 +21,7 @@ properties:
     description: absolute path to R2 fastq file
 required:
   - sample
+  - unit
   - run
   - lane
   - fq1
