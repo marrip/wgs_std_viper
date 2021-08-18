@@ -3,7 +3,6 @@ units: "units.tsv"
 
 reference:
   adapter:
-    fasta: "reference/TruSeq3-PE.fa"
     fwd: "TACACTCTTTCCCTACACGACGCTCTTCCGATCT"
     rev: "GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT"
   fasta: "reference/WASH7P.fna"
