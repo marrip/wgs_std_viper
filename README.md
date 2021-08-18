@@ -7,19 +7,18 @@ Simple workflow to map WGS data to reference genome according to GATK best pract
 
 ## :speech_balloon: Introduction
 
-This snakemake workflow produces `.bam` files from Illumina NGS `.fastq` files. It is
-designed to align WGS data from paired end sequencing runs. In addition, a coverage
-analysis is performed and several alignment statistics as well as a FastQC report are
-generated. The pipeline can be run as is or may be included in other workflows.
+This snakemake workflow produces `.bam` files from Illumina NGS `.fastq` files according to
+[GATK best practices](https://gatk.broadinstitute.org/hc/en-us/articles/360035535912-Data-pre-processing-for-variant-discovery).
+It is designed to align WGS data from paired end sequencing runs.
+In addition, a coverage analysis is performed and several alignment
+statistics as well as a FastQC report are generated.
 
 ## :heavy_exclamation_mark: Dependencies
 
 To run this workflow, the following tools need to be available:
 
 ![python](https://img.shields.io/badge/python-3.8-blue)
-
 [![snakemake](https://img.shields.io/badge/snakemake-5.32.0-blue)](https://snakemake.readthedocs.io/en/stable/)
-
 [![singularity](https://img.shields.io/badge/singularity-3.7-blue)](https://sylabs.io/docs/)
 
 ## :school_satchel: Preparations
@@ -78,3 +77,7 @@ HPC clusters, it is recommended to use a cluster profile and run something like:
 ```bash
 snakemake -s /path/to/Snakefile --profile my-awesome-profile
 ```
+
+## :judge: Rule Graph
+
+![rule_graph](https://raw.githubusercontent.com/marrip/wgs_std_viper/main/images/rulegraph.svg)
