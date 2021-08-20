@@ -2,9 +2,9 @@ rule fastqc:
     input:
         unpack(get_fastq),
     output:
-        directory("analysis_output/{sample}/fastqc/{sample}_{unit}_{run}_{lane}"),
+        directory("analysis_output/{sample}/fastqc/{sample}_{unit}/{run}_{lane}"),
     log:
-        "analysis_output/{sample}/fastqc/{sample}_{unit}_{run}_{lane}.log",
+        "analysis_output/{sample}/fastqc/{sample}_{unit}/{run}_{lane}.log",
     container:
         config["tools"]["fastqc"]
     threads: 2
