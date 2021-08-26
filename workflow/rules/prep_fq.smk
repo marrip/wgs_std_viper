@@ -2,8 +2,8 @@ rule combine_fq:
     input:
         unpack(get_sample_fastq),
     output:
-        fwd="analysis_output/{sample}/combine_fq/{sample}_{unit}_R1.fq.gz",
-        rev="analysis_output/{sample}/combine_fq/{sample}_{unit}_R2.fq.gz",
+        fwd=temp("analysis_output/{sample}/combine_fq/{sample}_{unit}_R1.fq.gz"),
+        rev=temp("analysis_output/{sample}/combine_fq/{sample}_{unit}_R2.fq.gz"),
     log:
         "analysis_output/{sample}/combine_fq/{sample}_{unit}.log",
     container:
