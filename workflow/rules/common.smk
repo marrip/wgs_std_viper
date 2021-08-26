@@ -21,13 +21,11 @@ validate(samples, schema="../schemas/samples.schema.yaml")
 
 ### Read and validate units file
 
-units = (
-    pd.read_table(config["units"], dtype=str)
-    .sort_values(["sample", "unit"], ascending=False)
-    .set_index(["sample", "unit", "run", "lane"], drop=False)
-    .sort_index()
+units = pd.read_table(config["units"], dtype=str).sort_values(
+    ["sample", "unit"], ascending=False
 )
-validate(units, schema="../schemas/units.schema.yaml")
+units["run"].replace("_", "-", regex=True, inplace=True)
+units = units.set_index(["sample", "unit", "run", "lane"], drop=False).sort_index()
 
 ### Set wildcard constraints
 
