@@ -1,3 +1,4 @@
+from os.path import dirname
 import pandas as pd
 from snakemake.utils import validate
 from snakemake.utils import min_version
@@ -24,6 +25,7 @@ units = (
     pd.read_table(config["units"], dtype=str)
     .sort_values(["sample", "unit"], ascending=False)
     .set_index(["sample", "unit", "run", "lane"], drop=False)
+    .sort_index()
 )
 validate(units, schema="../schemas/units.schema.yaml")
 
@@ -67,8 +69,8 @@ def get_all_bam_fmt(wildcards):
     return " -I ".join(list(get_all_bam(wildcards)))
 
 
-def compile_output_list(wildcards):
-    output_list = []
+def get_multiqc_files(wildcards):
+    input_list = []
     files = {
         "collect_multiple_metrics": [
             "alignment_summary_metrics",
@@ -95,6 +97,7 @@ def compile_output_list(wildcards):
             "quality_distribution_metrics",
             "quality_distribution.pdf",
         ],
+        "collect_duplicate_metrics": ["metrics",],
         "collect_wgs_metrics": ["txt",],
         "gather_bam_files": ["bam",],
         "mosdepth": [
@@ -106,18 +109,18 @@ def compile_output_list(wildcards):
         ],
         "samtools_stats": ["txt",],
     }
-    for row in units.loc[samples.index, ["sample", "unit", "run", "lane"]].iterrows():
-        output_list.append(
-            "analysis_output/%s/fastqc/%s_%s/%s/%s"
+    for row in units.loc[wildcards.sample, ["sample", "unit", "run", "lane"]].iterrows():
+        input_list.append(
+            "analysis_output/%s/fastqc/%s_%s_%s_%s"
             % (row[1]["sample"], row[1]["sample"], row[1]["unit"], row[1]["run"], row[1]["lane"])
         )
-    for row in units.loc[(samples.index), ["sample", "unit"]].drop_duplicates().iterrows():
+    for row in units.loc[wildcards.sample, ["sample", "unit"]].drop_duplicates().iterrows():
         for key in files.keys():
-            output_list = output_list + expand(
+            input_list = input_list + expand(
                 "analysis_output/{sample}/{tool}/{sample}_{unit}.{ext}",
                 sample=row[1]["sample"],
                 tool=key,
                 unit=row[1]["unit"],
                 ext=files[key],
             )
-    return output_list
+    return input_list

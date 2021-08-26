@@ -7,6 +7,7 @@ include: "rules/fastqc.smk"
 include: "rules/gather_bam_files.smk"
 include: "rules/mark_duplicates.smk"
 include: "rules/mosdepth.smk"
+include: "rules/multiqc.smk"
 include: "rules/prep_fq.smk"
 include: "rules/samtools_stats.smk"
 include: "rules/split_bam.smk"
@@ -14,4 +15,4 @@ include: "rules/split_bam.smk"
 
 rule all:
     input:
-        unpack(compile_output_list),
+        expand("analysis_output/{sample}/multiqc/{sample}.html", sample=samples.index),

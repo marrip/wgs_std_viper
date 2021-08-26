@@ -95,3 +95,24 @@ rule collect_wgs_metrics:
         "--VALIDATION_STRINGENCY SILENT "
         "--INCLUDE_BQ_HISTOGRAM "
         "--USE_FAST_ALGORITHM &> {log}"
+
+
+rule collect_duplicate_metrics:
+    input:
+        bam="analysis_output/{sample}/gather_bam_files/{sample}_{unit}.bam",
+        ref=config["reference"]["fasta"],
+        int=config["reference"]["intervals"],
+    output:
+        "analysis_output/{sample}/collect_duplicate_metrics/{sample}_{unit}.metrics",
+    log:
+        "analysis_output/{sample}/collect_duplicate_metrics/{sample}_{unit}.log",
+    container:
+        config["tools"]["gatk"]
+    message:
+        "{rule}: Collect Duplicate metrics on {wildcards.sample}_{wildcards.unit}"
+    shell:
+        """
+        gatk CollectDuplicateMetrics \
+        -I {input.bam} \
+        -M {output} &> {log}
+        """
