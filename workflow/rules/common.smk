@@ -116,19 +116,19 @@ def get_multiqc_files(wildcards):
             "txt",
         ],
     }
-    for row in units.loc[
-        wildcards.sample, ["sample", "unit", "run", "lane"]
-    ].iterrows():
-        input_list.append(
-            "analysis_output/%s/fastqc/%s_%s_%s_%s"
-            % (
-                row[1]["sample"],
-                row[1]["sample"],
-                row[1]["unit"],
-                row[1]["run"],
-                row[1]["lane"],
-            )
-        )
+    #for row in units.loc[
+    #    wildcards.sample, ["sample", "unit", "run", "lane"]
+    #].iterrows():
+    #    input_list.append(
+    #        "analysis_output/%s/fastqc/%s_%s_%s_%s"
+    #        % (
+    #            row[1]["sample"],
+    #            row[1]["sample"],
+    #            row[1]["unit"],
+    #            row[1]["run"],
+    #            row[1]["lane"],
+    #        )
+    #    )
     for row in (
         units.loc[wildcards.sample, ["sample", "unit"]].drop_duplicates().iterrows()
     ):
