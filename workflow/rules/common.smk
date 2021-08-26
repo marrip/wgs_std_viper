@@ -41,7 +41,8 @@ wildcard_constraints:
 
 def get_fastq(wildcards):
     fastqs = units.loc[
-        (wildcards.sample, wildcards.unit, wildcards.run, wildcards.lane), ["fq1", "fq2"]
+        (wildcards.sample, wildcards.unit, wildcards.run, wildcards.lane),
+        ["fq1", "fq2"],
     ].dropna()
     return {"fwd": fastqs.fq1, "rev": fastqs.fq2}
 
@@ -97,9 +98,15 @@ def get_multiqc_files(wildcards):
             "quality_distribution_metrics",
             "quality_distribution.pdf",
         ],
-        "collect_duplicate_metrics": ["metrics",],
-        "collect_wgs_metrics": ["txt",],
-        "gather_bam_files": ["bam",],
+        "collect_duplicate_metrics": [
+            "metrics",
+        ],
+        "collect_wgs_metrics": [
+            "txt",
+        ],
+        "gather_bam_files": [
+            "bam",
+        ],
         "mosdepth": [
             "mosdepth.global.dist.txt",
             "mosdepth.region.dist.txt",
@@ -107,14 +114,26 @@ def get_multiqc_files(wildcards):
             "regions.bed.gz",
             "regions.bed.gz.csi",
         ],
-        "samtools_stats": ["txt",],
+        "samtools_stats": [
+            "txt",
+        ],
     }
-    for row in units.loc[wildcards.sample, ["sample", "unit", "run", "lane"]].iterrows():
+    for row in units.loc[
+        wildcards.sample, ["sample", "unit", "run", "lane"]
+    ].iterrows():
         input_list.append(
             "analysis_output/%s/fastqc/%s_%s_%s_%s"
-            % (row[1]["sample"], row[1]["sample"], row[1]["unit"], row[1]["run"], row[1]["lane"])
+            % (
+                row[1]["sample"],
+                row[1]["sample"],
+                row[1]["unit"],
+                row[1]["run"],
+                row[1]["lane"],
+            )
         )
-    for row in units.loc[wildcards.sample, ["sample", "unit"]].drop_duplicates().iterrows():
+    for row in (
+        units.loc[wildcards.sample, ["sample", "unit"]].drop_duplicates().iterrows()
+    ):
         for key in files.keys():
             input_list = input_list + expand(
                 "analysis_output/{sample}/{tool}/{sample}_{unit}.{ext}",

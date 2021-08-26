@@ -4,7 +4,9 @@ rule mark_duplicates:
     output:
         bam=temp("analysis_output/{sample}/mark_duplicates/{sample}_{unit}_{locus}.bam"),
         bai=temp("analysis_output/{sample}/mark_duplicates/{sample}_{unit}_{locus}.bai"),
-        metrics=temp("analysis_output/{sample}/mark_duplicates/{sample}_{unit}_{locus}.metrics"),
+        metrics=temp(
+            "analysis_output/{sample}/mark_duplicates/{sample}_{unit}_{locus}.metrics"
+        ),
     log:
         "analysis_output/{sample}/mark_duplicates/{sample}_{unit}_{locus}.log",
     container:
