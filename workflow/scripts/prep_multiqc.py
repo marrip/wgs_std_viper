@@ -3,11 +3,11 @@
 
 import csv
 import logging
-from os.path import basename
+import os
 
 try:
     import yaml
-except ImportError:
+except ModuleNotFoundError:
     os.system("pip install PyYAML")
 
 import yaml
@@ -47,7 +47,7 @@ def get_tsv_data(fp):
     return tsv_dicts
 
 def get_filename(fp):
-    return basename(fp).replace(".fq.gz", "").replace(".fastq.gz", "")
+    return os.path.basename(fp).replace(".fq.gz", "").replace(".fastq.gz", "")
 
 def write_sample_name_file(data, fp):
     tsv = open(fp, "wt")
