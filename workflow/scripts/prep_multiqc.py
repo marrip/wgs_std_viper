@@ -4,6 +4,12 @@
 import csv
 import logging
 from os.path import basename
+
+try:
+    import yaml
+except ImportError:
+    os.system("pip install PyYAML")
+
 import yaml
 
 def config(fp):
