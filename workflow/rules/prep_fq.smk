@@ -6,12 +6,14 @@ rule combine_fq:
         rev=temp("analysis_output/{sample}/combine_fq/{sample}_{unit}_R2.fq.gz"),
     log:
         "analysis_output/{sample}/combine_fq/{sample}_{unit}.log",
+    benchmark:
+        "analysis_output/{sample}/combine_fq/{sample}_{unit}.tsv",
     container:
         config["tools"]["common"]
     message:
         "{rule}: Combine fastq files of sample {wildcards.sample}_{wildcards.unit}"
     shell:
-        "cat {input.fwd} > {output.fwd} | tee {log}"# && "
+        "cat {input.fwd} > {output.fwd}"# && "
         #"cat {input.rev} > {output.rev} | tee {log}"
 
 
