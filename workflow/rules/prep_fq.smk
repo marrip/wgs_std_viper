@@ -11,8 +11,8 @@ rule combine_fq:
     message:
         "{rule}: Combine fastq files of sample {wildcards.sample}_{wildcards.unit}"
     shell:
-        "cat {input.fwd} > {output.fwd} && "
-        "cat {input.rev} > {output.rev} | tee {log}"
+        "cat {input.fwd} > {output.fwd} | tee {log}"# && "
+        #"cat {input.rev} > {output.rev} | tee {log}"
 
 
 rule cutadapt:
